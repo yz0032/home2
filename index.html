@@ -3,6 +3,50 @@
 
     </head>
     <body>
-        
+        <div id="copythis">
+            <script>
+                function httpGet(theUrl) {
+                    var xmlHttp = new XMLHttpRequest();
+                    xmlHttp.open("GET", theUrl, true); // false for synchronous request
+                    xmlHttp.send(null);
+            
+                    xmlHttp.onreadystatechange = (e) => {
+                        if (xmlHttp.readyState==4 && xmlHttp.status==200)
+                        {
+                        myhit.innerHTML = xmlHttp.responseText;
+                        }
+                    }
+                     
+                }
+                function dohit(img){
+                        httpGet('https://rmilab.nkust.edu.tw'+'/projects/addone'+ '?id=' + 'c108135144@nkust.edu.tw')
+                 
+                }
+                function dohit2(img){
+                    //var url = 'https://rmilab.nkust.edu.tw/projects/addone?id=linchao@nkust.edu.tw';
+                    //fetch(url)
+                    fetch('/projects/addone' + new URLSearchParams({
+                        id: 'c108135144@nkust.edu.tw',
+                        
+                    }))
+                   .then(function (response) {
+                       return response.text();
+                       
+                    }).then(function (data) {
+                            myhit.innerHTML = data;
+                    }).catch(function () {
+                        console.log("Booo");
+                    });
+                }
+                window.addEventListener("load", function (event) {
+                    var userid = 'c108135144@nkust.edu.tw';
+                        httpGet('https://rmilab.nkust.edu.tw'+'/projects/hitcount' + "?id=" + userid)
+                
+                });
+            </script>
+            <button onclick="dohit(this)"><img></button>
+            點次數:<label id="myhit">0</label><br>
+            
+            </div>
     </body>
 </html>
